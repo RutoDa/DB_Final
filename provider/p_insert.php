@@ -24,9 +24,9 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">商家資訊</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="1">商品資訊</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">商品修改/移除</a> </li>
           <li class="nav-item"> <a class="nav-link" href="../logout.php">登出</a> </li>
+          <!-- <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="1">商品資訊</a> </li> -->
           <!-- <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="2">Services</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="3">Own Work</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="4">Contact</a> </li> -->
@@ -41,16 +41,28 @@
   <div class="banner text-center" data-scroll-index='0'>
     <div class="banner-overlay">
       <div class="container">
-        <img style="border-radius: 8px;" width="400" src="../images/about.jpeg" alt="">
+        <!-- <img style="border-radius: 8px;" width="400" src="../images/about.jpeg" alt=""> -->
         <br>
         <br>
-        <h1 class="text-capitalize">商家名稱</h1>
-        <p style="text-align:left;font-size: larger;padding-left: 100px;">電話號碼：</p>
-        <p style="text-align:left;font-size: larger;padding-left: 100px;">商家地址：</p>
-        <p style="text-align:left;font-size: larger;padding-left: 100px;">商家類別：</p>
-        <a href="p_info_editPage.php"><button class="btn btn-secondary">修改商家資訊</button></a>
+        <h1 class="text-capitalize">商品新增</h1>
+        <br>
+        <!-- <h3 style="color: #060861;">原本的名稱</h3> -->
+        <p></p>
+        <form method="POST" action="./php/p_edit.php">
+            <p style="font-size: 25px;">產品名稱</p>
+            <input id="product" style="text-align: left;" placeholder="" required="" autofocus="" type="text" name="product">
+            <p style="font-size: 25px;">價錢</p>
+            <input id="price" style="text-align: left;" placeholder=""  required="" type="number" name="price">
+            
+            <p style="font-size: 25px;">產品簡述</p>
+            <textarea id="description"  autofocus="" name="description" style="text-align: left;" name="description" placeholder="" cols="50" rows="10"></textarea>
+            <br><br>
+            <button type="submit" class="btn btn-info">新增</button>&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-secondary">取消</button>
+            </from>
+        
         &nbsp;&nbsp;
-        <a href="p_order.php"><button class="btn btn-danger">查看訂單</button></a>
+        
         </div>
     </div>
   </div>
@@ -58,46 +70,7 @@
   <!-- End Banner Image --> 
 
 
-    <div class="about-us section-padding" style="padding-top: 40px;" data-scroll-index='1'>
-        <center>
-            
-        <div class="container" style="padding-left: 5%;">
-            <h1 style="text-align: left;">商品&nbsp;&nbsp;<a href="p_insert.php"><button class="btn btn-dark">新增</button></a></h1>   
-            <br>
-            <table style="font-size: 20px;color: rgb(34, 33, 33);" class="table">
-                <tr>
-                  <th>商品名稱</th>
-                  <th>價錢</th> 
-                  <th>上次修改日期</th>
-                  <th>產品簡述</th>
-                  <th>修改/刪除</th>
-                </tr>
-                <tr>
-                  <td>薯條</td>
-                  <td>30</td> 
-                  <td>2022/03/17</td>
-                  <td>用油炸過的哦！不是用煎的薯條！！</td>
-                  <td><a href="p_product_editPage.php"><button class="btn btn-primary">修改/刪除</button></a></td>
-                </tr>
-                <tr>
-                    <td>漢堡</td>
-                    <td>70</td> 
-                    <td>2022/03/17</td>
-                    <td>看起來雖然跟早餐店的沒兩樣，但或許你會喜歡！！</td>
-                  <td><a href="p_product_editPage.php"><button class="btn btn-primary">修改/刪除</button></a></td>
-                </tr>
-                <tr>
-                    <td>可樂</td>
-                    <td>20</td> 
-                    <td>2022/05/17</td>
-                    <td>就711也買得到的可樂</td>
-                  <td><a href="p_product_editPage.php"><button class="btn btn-primary">修改/刪除</button></a></td>
-                </tr>
-              </table>
-            
-        </div>
-    </center>
-      </div>
+    
 <!-- End Contact -->
 <footer class="footer-copy">
     <div class="container-fluid">

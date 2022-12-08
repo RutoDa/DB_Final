@@ -136,9 +136,17 @@ h6 {
 	text-align: center;
 	width: 100%;
 }
-.banner-overlay {
+/* .banner-overlay {
 	background:linear-gradient(to bottom, rgba(2, 10, 255, 0.869) 0%, #89ffd0d8 100%);
 	padding:220px 0px 170px;
+} */
+.banner-overlay {
+	background:linear-gradient(to bottom, rgba(2, 10, 255, 0.869) 0%, #89ffd0d8 100%);
+	padding:100px 0px 50px;
+}
+.banner-overlay2 {
+	background:linear-gradient(to bottom, rgba(2, 10, 255, 0.869) 0%, rgba(2, 10, 255, 0.869) 100%);
+	padding:0px 0px 80px;
 }
 .banner h1 {
 	color:#ffffff;

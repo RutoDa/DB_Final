@@ -24,7 +24,7 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">商家資訊</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">訂單</a> </li>
           <li class="nav-item"> <a class="nav-link" href="../logout.php">登出</a> </li>
           <!-- <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="2">Services</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="3">Own Work</a> </li>
@@ -38,19 +38,8 @@
   <!-- Banner Image -->
   
   <div class="banner text-center" data-scroll-index='0'>
-    <div class="banner-overlay">
-      <div class="container">
-        <img style="border-radius: 8px;" width="400" src="../images/about.jpeg" alt="">
-        <br>
-        <br>
-        <h1 class="text-capitalize">商家名稱</h1>
-        <p style="text-align:left;font-size: larger;padding-left: 100px;">電話號碼：</p>
-        <p style="text-align:left;font-size: larger;padding-left: 100px;">商家地址：</p>
-        <p style="text-align:left;font-size: larger;padding-left: 100px;">商家類別：</p>
-        <a href="p_info_editPage.php"><button class="btn btn-secondary">修改商家資訊</button></a>
-        &nbsp;&nbsp;
-        <a href="p_order.php"><button class="btn btn-danger">查看訂單</button></a>
-        </div>
+    <div class="banner-overlay2">
+      
     </div>
   </div>
   
@@ -61,36 +50,36 @@
         <center>
             
         <div class="container" style="padding-left: 5%;">
-            <h1 style="text-align: left;">商品&nbsp;&nbsp;<button class="btn btn-dark">新增</button></h1>   
+            <h1 style="text-align: left;">訂單&nbsp;&nbsp;</h1>   
             <br>
             <table style="font-size: 20px;color: rgb(34, 33, 33);" class="table">
                 <tr>
-                  <th>商品名稱</th>
-                  <th>價錢</th> 
-                  <th>上次修改日期</th>
-                  <th>產品簡述</th>
-                  <th>修改/刪除</th>
+                  <th>訂單編號</th>
+                  <th>訂單日期</th> 
+                  <th>金額</th>
+                  <th>狀態</th>
+                  <th>查看</th>
                 </tr>
                 <tr>
-                  <td>薯條</td>
-                  <td>30</td> 
-                  <td>2022/03/17</td>
-                  <td>用油炸過的哦！不是用煎的薯條！！</td>
-                  <td><button class="btn btn-primary">修改/刪除</button></td>
+                  <td>1001</td>
+                  <td>2022/02/16</td> 
+                  <td>523</td>
+                  <td style="color: red;">未準備</td>
+                  <td><a href="p_check.php"><button class="btn btn-primary">查看</button></a></td>
                 </tr>
                 <tr>
-                    <td>漢堡</td>
-                    <td>70</td> 
-                    <td>2022/03/17</td>
-                    <td>看起來雖然跟早餐店的沒兩樣，但或許你會喜歡！！</td>
-                  <td><button class="btn btn-primary">修改/刪除</button></td>
+                    <td>998</td>
+                  <td>2022/01/16</td> 
+                  <td>150</td>
+                  <td style="color: green;">已完成</td>
+                  <td><a href="p_check.php"><button class="btn btn-primary">查看</button></a></td>
                 </tr>
                 <tr>
-                    <td>可樂</td>
-                    <td>20</td> 
-                    <td>2022/05/17</td>
-                    <td>就711也買得到的可樂</td>
-                  <td><button class="btn btn-primary">修改/刪除</button></td>
+                    <td>500</td>
+                  <td>2002/01/16</td> 
+                  <td>1000</td>
+                  <td style="color: green;">已完成</td>
+                  <td><a href="p_check.php"><button class="btn btn-primary">查看</button></a></td>
                 </tr>
               </table>
             
@@ -98,7 +87,7 @@
     </center>
       </div>
 <!-- End Contact -->
-<footer class="footer-copy">
+<!-- <footer class="footer-copy">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
@@ -106,7 +95,7 @@
         </div>
       </div>
     </div>
-  </footer>
+  </footer> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> 
   <!-- owl carousel js --> 
