@@ -3,44 +3,29 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>商家註冊-嘉大外送平台系統</title>
+<title>商家登入-嘉大外送平台系統</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="../css/p_style.css"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.min.css"/>
-<link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css"/>
-<link rel="stylesheet" type="text/css" href="css/owl.theme.default.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/jquery.fancybox.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/owl.carousel.min.css"/>
+<link rel="stylesheet" type="text/css" href="../css/owl.theme.default.min.css"/>
 
 <!-- Font Google -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>
-        
-    function validateForm() {
-        var x = document.forms["registerForm"]["password"].value;
-        var y = document.forms["registerForm"]["password_check"].value;
-        if(x.length<6){
-            alert("密碼長度不足");
-            return false;
-        }
-        if (x != y) {
-            alert("請確認密碼是否輸入正確");
-            return false;
-        }
-    }
-</script>
 </head>
 <body>
     <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
-    <div class="container"> <a class="navbar-brand navbar-logo" href="../index.html"> <img src="images/logo-white.png" alt="logo" class="logo-1"> </a>
+    <div class="container"> <a class="navbar-brand navbar-logo" href="../index.html"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-            <!-- <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">馬上開始</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="1">關於我們</a> </li> -->
+          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">馬上開始</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="1">關於我們</a> </li>
           <!-- <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="2">Services</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="3">Own Work</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="4">Contact</a> </li> -->
@@ -55,31 +40,16 @@
   <div class="banner text-center" data-scroll-index='0'>
     <div class="banner-overlay">
       <div class="container">
-        <h1 class="text-capitalize">商家註冊</h1>
-        <br>
-        <form name="registerForm" method="post" action="php/s_register.php" onsubmit="return validateForm()">
-            帳 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;號：
-                <input type="text" name="username"><br/><br/>
-            密  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 碼：
-            <input type="password" name="password" id="password"><br/><br/>
-            確認密碼：
-                <input type="password" name="password_check" id="password_check"><br/><br/>
-            商家姓名：
-                <input type="text" name="real_name" id="real_name"><br/><br/>
-                電話號碼：
-                <input type="text" name="phone" id="phone"><br/><br/>
-                商家地址：
-                <input type="text" name="addr" id="addr"><br/><br/>
-                商家圖片：
-                <input type="text" name="s_img" id="s_img"><br/><br/>
-                餐廳類別：
-                <input type="text" name="category" id="category"><br/><br/>
-        
-            <input type="submit" class="btn btn-light" value="註冊" name="submit">
-            &nbsp;&nbsp;&nbsp;
-            <input type="reset" value="重設" class="btn btn-secondary" name="submit">
-            </form>
-            
+        <h1 class="text-capitalize">商家登入</h1>
+        <form method="POST" action="php/p_login.php">
+            <br>
+            <input id="username" placeholder="帳號" required="" autofocus="" type="text" name="username">
+            <br><br>
+            <input id="password" placeholder="密碼" required="" type="password" name="password">
+            <br><br>
+            <button type="submit" class="btn btn-light">登入</button>&nbsp;&nbsp;&nbsp;
+            <a href="p_register.html">註冊帳號</a>
+            </from>
         </div>
     </div>
   </div>
@@ -126,15 +96,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> 
   <!-- owl carousel js --> 
-  <script src="js/owl.carousel.min.js"></script> 
+  <script src="../js/owl.carousel.min.js"></script> 
   <!-- magnific-popup --> 
-  <script src="js/jquery.fancybox.min.js"></script> 
+  <script src="../js/jquery.fancybox.min.js"></script> 
   
   <!-- scrollIt js --> 
-  <script src="js/scrollIt.min.js"></script> 
+  <script src="../js/scrollIt.min.js"></script> 
   
   <!-- isotope.pkgd.min js --> 
-  <script src="js/isotope.pkgd.min.js"></script> 
+  <script src="../js/isotope.pkgd.min.js"></script> 
   <script>
     $(window).on("scroll",function () {
   
@@ -144,13 +114,13 @@
         if(bodyScroll > 130){
   
             navbar.addClass("nav-scroll");
-            $('.navbar-logo img').attr('src','images/logo-black.png');
+            $('.navbar-logo img').attr('src','../images/logo-black.png');
   
   
         }else{
   
             navbar.removeClass("nav-scroll");
-            $('.navbar-logo img').attr('src','images/logo-white.png');
+            $('.navbar-logo img').attr('src','../images/logo-white.png');
   
         }
   
@@ -166,13 +136,13 @@
   if(bodyScroll > 130){
   
   navbar.addClass("nav-scroll");
-  $('.navbar-logo img').attr('src','images/logo-black.png');
+  $('.navbar-logo img').attr('src','../images/logo-black.png');
   
   
   }else{
   
   navbar.removeClass("nav-scroll");
-  $('.navbar-logo img').attr('src','images/logo-white.png');
+  $('.navbar-logo img').attr('src','../images/logo-white.png');
   
   }
   

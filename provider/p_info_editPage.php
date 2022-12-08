@@ -3,9 +3,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>外送員註冊-嘉大外送平台系統</title>
+<title>店的名稱</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="../css/d_style.css"/>
+<link rel="stylesheet" type="text/css" href="../css/p_style2.css"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../css/jquery.fancybox.min.css"/>
 <link rel="stylesheet" type="text/css" href="../css/owl.carousel.min.css"/>
@@ -16,31 +16,17 @@
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>
-        
-    function validateForm() {
-        var x = document.forms["registerForm"]["password"].value;
-        var y = document.forms["registerForm"]["password_check"].value;
-        if(x.length<6){
-            alert("密碼長度不足");
-            return false;
-        }
-        if (x != y) {
-            alert("請確認密碼是否輸入正確");
-            return false;
-        }
-    }
-</script>
 </head>
 <body>
     <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
-    <div class="container"> <a class="navbar-brand navbar-logo" href="../index.html"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
+    <div class="container"> <a class="navbar-brand navbar-logo" href="p_home.html"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-            <!-- <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">馬上開始</a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="1">關於我們</a> </li> -->
+          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">商家資訊修改</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="../logout.php">登出</a> </li>
+          <!-- <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="1">商品資訊</a> </li> -->
           <!-- <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="2">Services</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="3">Own Work</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="4">Contact</a> </li> -->
@@ -55,26 +41,29 @@
   <div class="banner text-center" data-scroll-index='0'>
     <div class="banner-overlay">
       <div class="container">
-        <h1 class="text-capitalize">外送員註冊</h1>
+        <!-- <img style="border-radius: 8px;" width="400" src="../images/about.jpeg" alt=""> -->
         <br>
-        <form name="registerForm" method="post" action="php/s_register.php" onsubmit="return validateForm()">
-            帳 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;號：
-                <input type="text" name="username"><br/><br/>
-            密  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 碼：
-            <input type="password" name="password" id="password"><br/><br/>
-            確認密碼：
-                <input type="password" name="password_check" id="password_check"><br/><br/>
-            真實姓名：
+        <br>
+        <h1 class="text-capitalize">商家資訊修改</h1>
+        <br>
+        <!-- <h3 style="color: #060861;">原本的名稱</h3> -->
+        <p></p>
+        <form method="POST" action="./php/p_edit.php">
+                商家名稱：
                 <input type="text" name="real_name" id="real_name"><br/><br/>
-                手機號碼：
+                電話號碼：
                 <input type="text" name="phone" id="phone"><br/><br/>
-                
+                商家地址：
+                <input type="text" name="addr" id="addr"><br/><br/>
+                商家圖片：
+                <input type="text" name="p_img" id="p_img"><br/><br/>
+                餐廳類別：
+                <input type="text" name="category" id="category"><br/><br/>
+                <input type="submit" class="btn btn-light" value="更新" name="submit">
+            </from>
         
-            <input type="submit" class="btn btn-light" value="註冊" name="submit">
-            &nbsp;&nbsp;&nbsp;
-            <input type="reset" value="重設" class="btn btn-secondary" name="submit">
-            </form>
-            
+        &nbsp;&nbsp;
+        
         </div>
     </div>
   </div>
@@ -82,32 +71,7 @@
   <!-- End Banner Image --> 
 
 
-    <div class="about-us section-padding" data-scroll-index='1'>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12 section-title text-center">
-              <h3>別再叫學長送！請叫嘉大外送來送！！！</h3>
-              <p>嘉大外送提供優質外送服務內容，讓你不用再叫學長送！！！</p>
-              <span class="section-title-line"></span> </div>
-            <div class="col-md-6 mb-50">
-              <div class="section-info">
-                <div class="sub-title-paragraph">
-                  <h4>為什麼選擇嘉大外送？</h4>
-                  <h5>因為實在是太讚拉!</h5>
-                  <p>嘉大外送美味：<br>
-                    ✓ 全台超過兩個人氣店家－從美食到生鮮雜貨通通有，馬上點！<br>
-                    ✓ 專業的外送夥伴，將在最短的時間內將你愛的餐點與生鮮雜貨外送給你。<br>
-                    ✓最親切有禮的客服，在家吃用餐也像VIP</p>
-                  
-                </div>
-                <a href="#home" class="anchor-btn" data-scroll-nav="0">馬上開始<i class="fas fa-arrow-right pd-lt-10"></i></a> </div>
-            </div>
-            <div class="col-md-6 mb-50">
-              <div class="section-img"> <img src="../images/about.jpeg" alt="" class="img-responsive"/> </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    
 <!-- End Contact -->
 <footer class="footer-copy">
     <div class="container-fluid">
