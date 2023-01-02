@@ -9,13 +9,13 @@ require_once('../../config.php');
 $product=$_POST["product"];
 $price=$_POST["price"];
 $description = $_POST["description"];
-$id = $_GET["id"];
 
 // Processing form data when form is submitted
 
-    $sql = "UPDATE `product` SET `product_name` = '".$product."', `price` = '".$price."', `description` = '".$description."' WHERE `product`.`product_id` = ".$id.";";
+    $sql = "INSERT INTO `product` (`product_id`, `product_name`, `provider_id`, `price`, `last_edit_date`, `description`) 
+    VALUES (NULL, '".$product."', '".$pid."', '".$price."',now() , '".$description."');";
     if (mysqli_query($conn, $sql)){
-        echo "<script>alert('修改成功');</script>"; 
+        echo "<script>alert('新增成功');</script>"; 
         echo "<script>window.location.replace('../p_home.php');</script>"; 
     }
     else{

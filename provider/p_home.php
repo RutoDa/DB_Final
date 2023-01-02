@@ -2,8 +2,7 @@
     session_start();
     require_once("../config.php");
     $pid = $_SESSION["provider_id"];
-$oid = $_GET['id'];
-    $sql = "SELECT * FROM `order_` WHERE order_id=".$oid;
+    $sql = "SELECT * FROM provider WHERE provider_id ='".$pid."'";
     $result=mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
   ?>
@@ -12,7 +11,7 @@ $oid = $_GET['id'];
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>訂單編號: <?php echo $oid;?></title>
+<title><?php echo $row['shop_name']; ?></title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../css/p_style2.css"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -33,7 +32,8 @@ $oid = $_GET['id'];
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">訂單</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">商家資訊</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="1">商品資訊</a> </li>
           <li class="nav-item"> <a class="nav-link" href="../logout.php">登出</a> </li>
           <!-- <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="2">Services</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="3">Own Work</a> </li>
@@ -47,60 +47,63 @@ $oid = $_GET['id'];
   <!-- Banner Image -->
   
   <div class="banner text-center" data-scroll-index='0'>
-    <div class="banner-overlay2">
-      
+    <div class="banner-overlay">
+      <div class="container">
+        <img style="border-radius: 8px;" width="400" src="<?php echo $row['image']; ?>" alt="">
+        <br>
+        <br>
+        <h1 class="text-capitalize"><?php echo $row['shop_name']; ?></h1>
+        <p style="text-align:left;font-size: larger;padding-left: 100px;">電話號碼：<?php echo $row['phone']; ?></p>
+        <p style="text-align:left;font-size: larger;padding-left: 100px;">商家地址：<?php echo $row['addr']; ?></p>
+        <p style="text-align:left;font-size: larger;padding-left: 100px;;">商家類別：<?php echo $row['category']; ?></p>
+        <a href="p_info_editPage.php"><button class="btn btn-secondary">修改商家資訊</button></a>
+        &nbsp;&nbsp;
+        <a href=""><button class="btn btn-info">查看收入</button></a>
+        &nbsp;&nbsp;
+        <a href="p_order.php"><button class="btn btn-danger">查看訂單</button></a>
+        
+        </div>
     </div>
   </div>
   
   <!-- End Banner Image --> 
 
 
-    <div class="about-us section-padding" data-scroll-index='1'>
+    <div class="about-us section-padding" style="padding-top: 40px;" data-scroll-index='1'>
         <center>
             
         <div class="container" style="padding-left: 5%;">
-            <h1 style="text-align: left;">訂單編號：<?php echo $oid;?></h1>  
-            
-            <br> 
-            <p style="text-align: left;">下訂時間：<?php echo $row['date'];?></p>
+            <h1 style="text-align: left;">商品&nbsp;&nbsp;<a href="p_insert.html"><button class="btn btn-dark">新增</button></a></h1>   
             <br>
             <table style="font-size: 20px;color: rgb(34, 33, 33);" class="table">
-                
-                <tr>  
+                <tr>
                   <th>商品名稱</th>
-                  <th>單價</th> 
-                  <th>數量</th>
-                  <th>金額</th>
+                  <th>價錢</th> 
+                  <th>上次修改日期</th>
+                  <th>產品簡述</th>
+                  <th>修改/刪除</th>
                 </tr>
-
                 <?php
-                $sql = "SELECT * FROM `order_detail` 
-                INNER JOIN product 
-                ON order_detail.product_id = product.product_id 
-                WHERE order_id=".$oid;
-                $result2=mysqli_query($conn, $sql);
-                while($row2 = mysqli_fetch_assoc($result2)){
+                  $sql = "SELECT * FROM `product` WHERE `provider_id` = ".$pid.";";
+                  $result=mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_array($result)) {
                   echo "<tr>";
-                  echo "<td>" . $row2['product_name'] . "</td>";
-                  echo "<td>" . $row2['price'] . "</td>";
-                  echo "<td>" . $row2['count'] . "</td>";
-                  echo "<td>" . $row2['count']*$row2['price']  . "</td>";
-                  echo "</tr>";
+                  echo "<td>" . $row['product_name'] . "</td>";
+                  echo "<td>" . $row['price'] . "</td>";
+                  echo "<td>" . $row['last_edit_date'] . "</td>";
+                  echo "<td>" . $row['description'] . "</td>";
+                  echo "<td><a href='p_product_editPage.php?id=" . $row['product_id'] . "'><button class='btn btn-primary'>修改/刪除</button></a></td>";
                 }
                 ?>
+               
                 
               </table>
-              <h4 style="text-align: left; color:red;">備註：<?php echo $row['memo'];?></h4>
-            <h4 style="text-align: left;">總金額：<?php echo $row['total_price'];?>&nbsp;&nbsp;</h4>
-            <h3>實收金額：<?php echo round($row['total_price']*0.8, 0);?></h3>
-            <p>總金額的20%為外送員的獲利</p>
-            <br>
-            <a href="php/p_complete.php?id=<?php echo $oid?>"><button class="btn btn-success">完成</button></a> 
+            
         </div>
     </center>
       </div>
 <!-- End Contact -->
-<!-- <footer class="footer-copy">
+<footer class="footer-copy">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
@@ -108,7 +111,7 @@ $oid = $_GET['id'];
         </div>
       </div>
     </div>
-  </footer> -->
+  </footer>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> 
   <!-- owl carousel js --> 

@@ -1,20 +1,21 @@
 <?php
     session_start();
     require_once("../config.php");
-    $pid = $_SESSION["provider_id"];
-$oid = $_GET['id'];
-    $sql = "SELECT * FROM `order_` WHERE order_id=".$oid;
+    $cid = $_SESSION["customer_id"];
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM provider WHERE provider_id ='".$id."'";
     $result=mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
+    
   ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>訂單編號: <?php echo $oid;?></title>
+<title><?php echo $row['shop_name']; ?></title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="../css/p_style2.css"/>
+<link rel="stylesheet" type="text/css" href="../css/c_style2.css"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../css/jquery.fancybox.min.css"/>
 <link rel="stylesheet" type="text/css" href="../css/owl.carousel.min.css"/>
@@ -29,11 +30,11 @@ $oid = $_GET['id'];
 <body>
     <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
-    <div class="container"> <a class="navbar-brand navbar-logo" href="p_home.php"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
+    <div class="container"> <a class="navbar-brand navbar-logo" href="c_home.php"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">訂單</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">選購</a> </li>
           <li class="nav-item"> <a class="nav-link" href="../logout.php">登出</a> </li>
           <!-- <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="2">Services</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="3">Own Work</a> </li>
@@ -47,8 +48,11 @@ $oid = $_GET['id'];
   <!-- Banner Image -->
   
   <div class="banner text-center" data-scroll-index='0'>
-    <div class="banner-overlay2">
-      
+    <div class="banner-overlay3">
+    <img style="border-radius: 8px;" width="400" src="<?php echo $row['image']; ?>" alt="">
+        <br>
+        <br>
+        <h1 class="text-capitalize"><?php echo $row['shop_name']; ?></h1>
     </div>
   </div>
   
@@ -59,43 +63,44 @@ $oid = $_GET['id'];
         <center>
             
         <div class="container" style="padding-left: 5%;">
-            <h1 style="text-align: left;">訂單編號：<?php echo $oid;?></h1>  
+            <h1 style="text-align: left;">商品</h1>  
             
-            <br> 
-            <p style="text-align: left;">下訂時間：<?php echo $row['date'];?></p>
             <br>
+            <form action="php/c_request.php?">
             <table style="font-size: 20px;color: rgb(34, 33, 33);" class="table">
-                
-                <tr>  
+              <tr>
                   <th>商品名稱</th>
-                  <th>單價</th> 
-                  <th>數量</th>
-                  <th>金額</th>
-                </tr>
+                  <th>價錢</th> 
 
+                  <th>產品簡述</th>
+                  <th>數量</th>
+              </tr>
                 <?php
-                $sql = "SELECT * FROM `order_detail` 
-                INNER JOIN product 
-                ON order_detail.product_id = product.product_id 
-                WHERE order_id=".$oid;
-                $result2=mysqli_query($conn, $sql);
-                while($row2 = mysqli_fetch_assoc($result2)){
+                  $sql = "SELECT * FROM `product` WHERE `provider_id` = ".$id.";";
+                  $result=mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_array($result)) {
                   echo "<tr>";
-                  echo "<td>" . $row2['product_name'] . "</td>";
-                  echo "<td>" . $row2['price'] . "</td>";
-                  echo "<td>" . $row2['count'] . "</td>";
-                  echo "<td>" . $row2['count']*$row2['price']  . "</td>";
-                  echo "</tr>";
+                  echo "<td>" . $row['product_name'] . "</td>";
+                  echo "<td>" . $row['price'] . "</td>";
+                  echo "<td><input name='".$row['product_id']."' type='number' value='0'></td>";
+                  echo "<td>" . $row['description'] . "</td>";
+                  
                 }
                 ?>
                 
-              </table>
-              <h4 style="text-align: left; color:red;">備註：<?php echo $row['memo'];?></h4>
-            <h4 style="text-align: left;">總金額：<?php echo $row['total_price'];?>&nbsp;&nbsp;</h4>
-            <h3>實收金額：<?php echo round($row['total_price']*0.8, 0);?></h3>
-            <p>總金額的20%為外送員的獲利</p>
+            </table>
+              <!-- <h4 style="text-align: left; color:red;">備註：我不要香菜！！！</h4> -->
+            
             <br>
-            <a href="php/p_complete.php?id=<?php echo $oid?>"><button class="btn btn-success">完成</button></a> 
+            <h3 style="text-align:left">外送地址</h3><input name="address" required="" style="text-align: left;" size="150" type="text">
+            <br>
+            <br>
+            <h3 style="text-align:left">備註</h3><input name="memo"  size="150" type="text">
+            <br>
+            <br>
+            <input style="display: none;" type="text" name="id" value="<?php echo $id; ?>">
+            <input type="submit" class="btn btn-success" value="下訂">
+            </form>
         </div>
     </center>
       </div>

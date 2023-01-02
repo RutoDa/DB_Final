@@ -1,9 +1,18 @@
+<?php
+    session_start();
+    require_once("../config.php");
+    $pid = $_SESSION["provider_id"];
+$product_id = $_GET["id"];
+$sql = "SELECT * FROM provider WHERE provider_id ='".$pid."'";
+    $result=mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>店的名稱</title>
+<title><?php echo $row['shop_name']; ?></title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../css/p_style2.css"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -20,7 +29,7 @@
 <body>
     <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
-    <div class="container"> <a class="navbar-brand navbar-logo" href="p_home.html"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
+    <div class="container"> <a class="navbar-brand navbar-logo" href="p_home.php"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
@@ -48,14 +57,19 @@
         <br>
         <!-- <h3 style="color: #060861;">原本的名稱</h3> -->
         <p></p>
-        <form method="POST" action="./php/p_edit.php">
+        <?php
+        $sql = "SELECT * FROM `product` WHERE 	product_id=". $product_id .";";
+        $result=mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+        ?>
+        <form method="POST" action="./php/p_edit.php?id=<?php echo $row['product_id']; ?>">
             <p style="font-size: 25px;">產品名稱</p>
-            <input id="product" style="text-align: left;" placeholder="" value="原本的名稱"required="" autofocus="" type="text" name="product">
+            <input id="product" style="text-align: left;" placeholder="" value="<?php echo $row['product_name']; ?>" required="" autofocus="" type="text" name="product">
             <p style="font-size: 25px;">價錢</p>
-            <input id="price" style="text-align: left;" placeholder="" value="30" required="" type="number" name="price">
+            <input id="price" style="text-align: left;" placeholder="" value="<?php echo $row['price']; ?>" required="" type="number" name="price">
             
             <p style="font-size: 25px;">產品簡述</p>
-            <textarea id="description"  autofocus="" name="description" style="text-align: left;" name="description" placeholder="" cols="50" rows="10">原本的描述</textarea>
+            <textarea id="description"  autofocus="" name="description" style="text-align: left;" name="description" placeholder="" cols="50" rows="10"><?php echo $row['description']; ?></textarea>
             <br><br>
             <button type="submit" class="btn btn-light">更新</button>&nbsp;&nbsp;&nbsp;
             <button class="btn btn-danger">刪除</button>

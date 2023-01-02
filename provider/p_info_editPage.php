@@ -24,7 +24,7 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
-        <div class="container"> <a class="navbar-brand navbar-logo" href="p_home.html"> <img
+        <div class="container"> <a class="navbar-brand navbar-logo" href="p_home.php"> <img
                     src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span

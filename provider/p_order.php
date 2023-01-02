@@ -1,9 +1,17 @@
+<?php
+    session_start();
+    require_once("../config.php");
+    $pid = $_SESSION["provider_id"];
+    $sql = "SELECT * FROM provider WHERE provider_id ='".$pid."'";
+    $result=mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>店的名稱</title>
+<title><?php echo $row['shop_name']; ?>訂單</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../css/p_style2.css"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
@@ -20,11 +28,11 @@
 <body>
     <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
-    <div class="container"> <a class="navbar-brand navbar-logo" href="p_home.html"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
+    <div class="container"> <a class="navbar-brand navbar-logo" href="p_home.php"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">訂單</a> </li>
+          
           <li class="nav-item"> <a class="nav-link" href="../logout.php">登出</a> </li>
           <!-- <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="2">Services</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="3">Own Work</a> </li>
@@ -50,37 +58,34 @@
         <center>
             
         <div class="container" style="padding-left: 5%;">
-            <h1 style="text-align: left;">訂單&nbsp;&nbsp;</h1>   
+            <h1 style="text-align: left;">訂單&nbsp;&nbsp;<a href=""><button class="btn btn-info">查看收入</button></a></h1>   
             <br>
             <table style="font-size: 20px;color: rgb(34, 33, 33);" class="table">
                 <tr>
                   <th>訂單編號</th>
-                  <th>訂單日期</th> 
-                  <th>金額</th>
+                  <th>訂單時間</th> 
+                  <th>實收金額</th>
                   <th>狀態</th>
                   <th>查看</th>
                 </tr>
-                <tr>
-                  <td>1001</td>
-                  <td>2022/02/16</td> 
-                  <td>523</td>
-                  <td style="color: red;">未準備</td>
-                  <td><a href="p_check.php"><button class="btn btn-primary">查看</button></a></td>
-                </tr>
-                <tr>
-                    <td>998</td>
-                  <td>2022/01/16</td> 
-                  <td>150</td>
-                  <td style="color: green;">已完成</td>
-                  <td><a href="p_check.php"><button class="btn btn-primary">查看</button></a></td>
-                </tr>
-                <tr>
-                    <td>500</td>
-                  <td>2002/01/16</td> 
-                  <td>1000</td>
-                  <td style="color: green;">已完成</td>
-                  <td><a href="p_check.php"><button class="btn btn-primary">查看</button></a></td>
-                </tr>
+                <?php
+                  $sql = "SELECT * FROM `order_` WHERE provider_id=".$pid." ORDER BY `order_`.`date` DESC";
+                  $result=mysqli_query($conn, $sql);
+                  
+                while ($row = mysqli_fetch_array($result)) {
+                  echo "<tr>";
+                  echo "<td>".$row['order_id']."</td>";
+                  echo "<td>".$row['date']."</td>";
+                  echo "<td>".$row['total_price']."</td>";
+                  if ($row['status']==0) {
+                      echo "<td style='color: red;'>未準備</td>";
+                  } else {
+                    echo "<td style='color: green;'>已完成</td>";
+                  }
+                  echo "<td><a href='p_check.php?id=".$row['order_id']."'><button class='btn btn-primary'>查看</button></a></td>";
+                }
+                ?>
+                
               </table>
             
         </div>

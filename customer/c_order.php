@@ -1,20 +1,22 @@
 <?php
     session_start();
     require_once("../config.php");
-    $pid = $_SESSION["provider_id"];
-$oid = $_GET['id'];
-    $sql = "SELECT * FROM `order_` WHERE order_id=".$oid;
+    $cid = $_SESSION["customer_id"];
+    $oid = $_GET['oid'];
+    $pid = $_GET['pid'];
+    $sql = "SELECT * FROM order_ WHERE order_id ='".$oid."'";
     $result=mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
+    $row1 = mysqli_fetch_assoc($result);
   ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>訂單編號: <?php echo $oid;?></title>
+<title>訂單編號<?php echo $oid; ?></title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="../css/p_style2.css"/>
+<link rel="stylesheet" type="text/css" href="../css/c_style2.css"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../css/jquery.fancybox.min.css"/>
 <link rel="stylesheet" type="text/css" href="../css/owl.carousel.min.css"/>
@@ -29,11 +31,12 @@ $oid = $_GET['id'];
 <body>
     <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
-    <div class="container"> <a class="navbar-brand navbar-logo" href="p_home.php"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
+    <div class="container"> <a class="navbar-brand navbar-logo" href="c_home.php"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">訂單</a> </li>
+          <!-- <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">基本資訊</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="1">下單</a> </li> -->
           <li class="nav-item"> <a class="nav-link" href="../logout.php">登出</a> </li>
           <!-- <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="2">Services</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="3">Own Work</a> </li>
@@ -48,23 +51,73 @@ $oid = $_GET['id'];
   
   <div class="banner text-center" data-scroll-index='0'>
     <div class="banner-overlay2">
-      
+      <div class="container">
+        
+        
+        
+        </div>
     </div>
   </div>
   
   <!-- End Banner Image --> 
 
 
-    <div class="about-us section-padding" data-scroll-index='1'>
+  <div class="about-us section-padding" data-scroll-index='1'>
         <center>
             
         <div class="container" style="padding-left: 5%;">
-            <h1 style="text-align: left;">訂單編號：<?php echo $oid;?></h1>  
-            
-            <br> 
-            <p style="text-align: left;">下訂時間：<?php echo $row['date'];?></p>
+            <h1 style="text-align: left;">訂單編號:&nbsp;&nbsp;<?php echo $oid; ?></h1>   
             <br>
+            <?php
+            $sql2 = "SELECT * FROM `provider` WHERE `provider_id`=".$pid;
+            $result2=mysqli_query($conn, $sql2);
+            $row2 = mysqli_fetch_assoc($result2);
+            ?>
             <table style="font-size: 20px;color: rgb(34, 33, 33);" class="table">
+                <tr>
+                  <th>商家</th>
+                  <th>外送員</th> 
+                  <th>狀態</th>
+                  <th>應付金額</th>
+                  
+                </tr>
+                <tr>
+                  
+                  <td><?php echo $row2['shop_name']; ?></td>
+                  <td><?php if ($row1['status'] >= 2) {
+                    $sql3 = "SELECT * FROM `order_` INNER JOIN `deliver` ON `order_`.`deliver_id`=`deliver`.`deliver_id`;";
+                    $result3=mysqli_query($conn, $sql3);
+                    $row3 = mysqli_fetch_assoc($result3);
+                    echo "<p style='color:green;'>".$row3['real_name']."</p>"; } else {
+                    echo "<p style='color:red;'>尚未指派</p>";}?></td>
+                  <td>
+                    <?php
+                    switch ($row1['status']) {
+                      case 0:
+                        echo "<p style='color:red;'>"."商家製作中"."</p>";
+                        break;
+                      case 1:
+                        echo "<p style='color:red'>"."等待外送中"."</p>";
+                        break;
+                      case 2:
+                        echo "<p style='color:red;'>"."外送中"."</p>";
+                        break;
+                      case 3:
+                        echo "<p style='color:green;'>"."訂單完成"."</p>";
+                        break;
+                      
+                    }
+                    ?>
+                  </td> 
+                  <td><?php echo $row1['total_price']; ?></td>
+          
+                </tr>
+                
+              </table>
+              <br><br>
+              <h1 style="text-align: left;">訂單細節:&nbsp;&nbsp;</h1>   
+              <br>
+              <table style="font-size: 20px;color: rgb(34, 33, 33);" class="table">
                 
                 <tr>  
                   <th>商品名稱</th>
@@ -88,14 +141,8 @@ $oid = $_GET['id'];
                   echo "</tr>";
                 }
                 ?>
-                
+
               </table>
-              <h4 style="text-align: left; color:red;">備註：<?php echo $row['memo'];?></h4>
-            <h4 style="text-align: left;">總金額：<?php echo $row['total_price'];?>&nbsp;&nbsp;</h4>
-            <h3>實收金額：<?php echo round($row['total_price']*0.8, 0);?></h3>
-            <p>總金額的20%為外送員的獲利</p>
-            <br>
-            <a href="php/p_complete.php?id=<?php echo $oid?>"><button class="btn btn-success">完成</button></a> 
         </div>
     </center>
       </div>
