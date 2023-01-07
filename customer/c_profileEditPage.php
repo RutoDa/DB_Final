@@ -1,21 +1,9 @@
 <?php
 session_start();
 require_once("../config.php");
-$did = $_SESSION["deliver_id"];
-$oid = $_GET["id"];
-//UPDATE `order_` SET `deliver_id` = '1', `status` = '2' WHERE `order_`.`order_id` = 9;
-$update = "UPDATE `order_` SET `deliver_id` = '".$did."', `status` = '2' WHERE `order_`.`order_id` = " . $oid;
-mysqli_query($conn, $update);
-
-
-
-
-$sql = "SELECT customer.real_name, customer.phone, provider.addr , order_.delivery_addr, order_.total_price , order_.date
-FROM `order_` 
-INNER JOIN provider ON order_.provider_id=provider.provider_id 
-INNER JOIN customer ON order_.customer_id=customer.customer_id 
-WHERE order_id = " . $oid;
-$result = mysqli_query($conn, $sql);
+$did = $_SESSION["customer_id"];
+$sql = "SELECT * FROM customer WHERE customer_id = ". $did;
+$result=mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 ?>
 <!DOCTYPE html>
@@ -24,10 +12,10 @@ $row = mysqli_fetch_assoc($result);
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-  <title>訂單編號<?php echo $oid; ?></title>
+  <title>修改個人資料</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
     integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="../css/d_style2.css" />
+  <link rel="stylesheet" type="text/css" href="../css/c_style2.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
     integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="../css/jquery.fancybox.min.css" />
@@ -44,7 +32,7 @@ $row = mysqli_fetch_assoc($result);
 <body>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg">
-    <div class="container"> <a class="navbar-brand navbar-logo" href="d_home.php"> <img src="../images/logo-white.png"
+    <div class="container"> <a class="navbar-brand navbar-logo" href="c_home.php"> <img src="../images/logo-white.png"
           alt="logo" class="logo-1"> </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span
@@ -77,32 +65,18 @@ $row = mysqli_fetch_assoc($result);
     <center>
 
       <div class="container" style="padding-left: 5%;">
-        <h1 style="text-align: left;">訂單編號：<?php echo $oid; ?></h1>
-        <br>
-        <p style="text-align: left;">下訂時間：<?php echo $row['date']; ?></p>
-        <br>
-        <table style="font-size: 20px;color: rgb(34, 33, 33);" class="table">
-          <tr>
-            <th>顧客姓名</th>
-            <th>顧客手機</th>
-            <th>店家地址</th>
-            <th>外送地址</th>
-            <th>應收款</th>
-            <th>外送費</th>
-          </tr>
-          <tr>
-            <td><?php echo $row['real_name']; ?></td>
-            <td><?php echo $row['phone']; ?></td>
-            <td><?php echo $row['addr']; ?></td>
-            <td><?php echo $row['delivery_addr']; ?></td>
-            <td><?php echo $row['total_price']; ?></td>
-            <td><?php echo round($row['total_price'] * 0.2, 0) ?></td>
-          </tr>
-        </table>
-        <!-- <h4 style="text-align: left; color:red;">備註：我不要香菜！！！</h4> -->
-
-        <br>
-        <a href="php/d_complete.php?id=<?php echo $oid; ?>"><button class="btn btn-success">外送完成</button></a>
+        
+      <form method="POST" action="./php/c_profileUpdate.php">
+        <p style="font-size: 25px;">姓名</p>
+                <input type="text" name="real_name" id="real_name" value="<?php echo $row['real_name']; ?>"><br/><br/>
+                <p style="font-size: 25px;">手機號碼</p>
+                <input type="text" name="phone" id="phone" value="<?php echo $row['phone']; ?>"><br/><br/>
+                
+        
+            <input type="submit" class="btn btn-light" value="修改" name="submit">
+            &nbsp;&nbsp;&nbsp;
+            <input type="reset" value="重設" class="btn btn-secondary" name="submit">
+            </from>
       </div>
     </center>
   </div>

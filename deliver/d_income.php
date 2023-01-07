@@ -2,21 +2,14 @@
 session_start();
 require_once("../config.php");
 $did = $_SESSION["deliver_id"];
-$oid = $_GET["id"];
-//UPDATE `order_` SET `deliver_id` = '1', `status` = '2' WHERE `order_`.`order_id` = 9;
-$update = "UPDATE `order_` SET `deliver_id` = '".$did."', `status` = '2' WHERE `order_`.`order_id` = " . $oid;
-mysqli_query($conn, $update);
-
-
-
-
-$sql = "SELECT customer.real_name, customer.phone, provider.addr , order_.delivery_addr, order_.total_price , order_.date
-FROM `order_` 
-INNER JOIN provider ON order_.provider_id=provider.provider_id 
-INNER JOIN customer ON order_.customer_id=customer.customer_id 
-WHERE order_id = " . $oid;
-$result = mysqli_query($conn, $sql);
+$sql = "SELECT SUM(total_price) AS sum FROM `order_` WHERE deliver_id=" . $did;
+$result=mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
+$sum = round($row['sum']*0.2,0);
+
+
+$sql = "SELECT * FROM `order_` WHERE deliver_id=" . $did;
+$result=mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +17,7 @@ $row = mysqli_fetch_assoc($result);
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-  <title>訂單編號<?php echo $oid; ?></title>
+  <title>收入</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
     integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="../css/d_style2.css" />
@@ -77,32 +70,35 @@ $row = mysqli_fetch_assoc($result);
     <center>
 
       <div class="container" style="padding-left: 5%;">
-        <h1 style="text-align: left;">訂單編號：<?php echo $oid; ?></h1>
+        <h1 style="text-align: left;">總收入:<?php echo $sum; ?></h1>
         <br>
-        <p style="text-align: left;">下訂時間：<?php echo $row['date']; ?></p>
+        
         <br>
         <table style="font-size: 20px;color: rgb(34, 33, 33);" class="table">
           <tr>
-            <th>顧客姓名</th>
-            <th>顧客手機</th>
-            <th>店家地址</th>
-            <th>外送地址</th>
-            <th>應收款</th>
+            <th>訂單編號</th>
+            <th>時間</th>
             <th>外送費</th>
           </tr>
-          <tr>
-            <td><?php echo $row['real_name']; ?></td>
-            <td><?php echo $row['phone']; ?></td>
-            <td><?php echo $row['addr']; ?></td>
-            <td><?php echo $row['delivery_addr']; ?></td>
-            <td><?php echo $row['total_price']; ?></td>
-            <td><?php echo round($row['total_price'] * 0.2, 0) ?></td>
-          </tr>
+          
+            <?php
+            while($row = mysqli_fetch_assoc($result)){
+                echo "<tr>";
+                echo "<td>".$row['order_id']."</td>";
+                echo "<td>".$row['date']."</td>";
+                echo "<td>".round($row['total_price']*0.2,0)."</td>";
+                echo "</tr>";
+            }
+            ?>
+            
+
+            
+          
         </table>
         <!-- <h4 style="text-align: left; color:red;">備註：我不要香菜！！！</h4> -->
 
         <br>
-        <a href="php/d_complete.php?id=<?php echo $oid; ?>"><button class="btn btn-success">外送完成</button></a>
+        
       </div>
     </center>
   </div>

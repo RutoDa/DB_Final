@@ -1,22 +1,19 @@
 <?php
     session_start();
     require_once("../config.php");
-    $cid = $_SESSION["customer_id"];
-    $oid = $_GET['oid'];
-    $pid = $_GET['pid'];
-    $sql = "SELECT * FROM order_ WHERE order_id ='".$oid."'";
+    $pid = $_SESSION["provider_id"];
+    $sql = "SELECT * FROM provider WHERE provider_id ='".$pid."'";
     $result=mysqli_query($conn, $sql);
-    $row1 = mysqli_fetch_assoc($result);
+    $row = mysqli_fetch_assoc($result);
   ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>訂單編號<?php echo $oid; ?></title>
+<title><?php echo $row['shop_name']; ?></title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="../css/c_style2.css"/>
+<link rel="stylesheet" type="text/css" href="../css/p_style2.css"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../css/jquery.fancybox.min.css"/>
 <link rel="stylesheet" type="text/css" href="../css/owl.carousel.min.css"/>
@@ -31,13 +28,13 @@
 <body>
     <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
-    <div class="container"> <a class="navbar-brand navbar-logo" href="c_home.php"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
+    <div class="container"> <a class="navbar-brand navbar-logo" href="p_home.php"> <img src="../images/logo-white.png" alt="logo" class="logo-1"> </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="fas fa-bars"></span> </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <!-- <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">基本資訊</a> </li>
-          <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="1">下單</a> </li> -->
+          <li class="nav-item"> <a class="nav-link" href="" data-scroll-nav="0">商品修改/移除</a> </li>
           <li class="nav-item"> <a class="nav-link" href="../logout.php">登出</a> </li>
+          <!-- <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="1">商品資訊</a> </li> -->
           <!-- <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="2">Services</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="3">Own Work</a> </li>
           <li class="nav-item"> <a class="nav-link" href="#" data-scroll-nav="4">Contact</a> </li> -->
@@ -50,10 +47,33 @@
   <!-- Banner Image -->
   
   <div class="banner text-center" data-scroll-index='0'>
-    <div class="banner-overlay2">
+    <div class="banner-overlay">
       <div class="container">
+        <!-- <img style="border-radius: 8px;" width="400" src="../images/about.jpeg" alt=""> -->
+        <br>
+        <br>
+        <h1 class="text-capitalize">商家資訊</h1>
+        <br>
+        <!-- <h3 style="color: #060861;">原本的名稱</h3> -->
+        <p></p>
+        <form method="POST" action="./php/p_profileUpdate.php">
+        <p style="font-size: 25px;">商家名稱</p>
+                <input type="text" name="real_name" id="real_name" value="<?php echo $row['shop_name']; ?>"><br/><br/>
+                <p style="font-size: 25px;">電話號碼</p>
+                <input type="text" name="phone" id="phone" value="<?php echo $row['phone']; ?>"><br/><br/>
+                <p style="font-size: 25px;">商家地址</p>
+                <input type="text" name="addr" id="addr" value="<?php echo $row['addr']; ?>"><br/><br/>
+                <p style="font-size: 25px;">商家圖片</p>
+                <input type="text" name="p_img" id="p_img" value="<?php echo $row['image']; ?>"><br/><br/>
+                <p style="font-size: 25px;">餐廳類別</p>
+                <input type="text" name="category" id="category" value="<?php echo $row['category']; ?>"><br/><br/>
         
+            <input type="submit" class="btn btn-light" value="修改" name="submit">
+            &nbsp;&nbsp;&nbsp;
+            <input type="reset" value="重設" class="btn btn-secondary" name="submit">
+            </from>
         
+        &nbsp;&nbsp;
         
         </div>
     </div>
@@ -62,90 +82,7 @@
   <!-- End Banner Image --> 
 
 
-  <div class="about-us section-padding" data-scroll-index='1'>
-        <center>
-            
-        <div class="container" style="padding-left: 5%;">
-            <h1 style="text-align: left;">訂單編號:&nbsp;&nbsp;<?php echo $oid; ?></h1>   
-            <br>
-            <?php
-            $sql2 = "SELECT * FROM `provider` WHERE `provider_id`=".$pid;
-            $result2=mysqli_query($conn, $sql2);
-            $row2 = mysqli_fetch_assoc($result2);
-            ?>
-            <table style="font-size: 20px;color: rgb(34, 33, 33);" class="table">
-                <tr>
-                  <th>商家</th>
-                  <th>外送員</th> 
-                  <th>狀態</th>
-                  <th>應付金額</th>
-                  
-                </tr>
-                <tr>
-                  
-                  <td><?php echo $row2['shop_name']; ?></td>
-                  <td><?php if ($row1['status'] >= 2) {
-                    $sql3 = "SELECT * FROM `order_` INNER JOIN `deliver` ON `order_`.`deliver_id`=`deliver`.`deliver_id` WHERE order_id=".$oid;
-                    $result3=mysqli_query($conn, $sql3);
-                    $row3 = mysqli_fetch_assoc($result3);
-                    echo "<p style='color:green;'>".$row3['real_name']."</p>"; } else {
-                    echo "<p style='color:red;'>尚未指派</p>";}?></td>
-                  <td>
-                    <?php
-                    switch ($row1['status']) {
-                      case 0:
-                        echo "<p style='color:red;'>"."商家製作中"."</p>";
-                        break;
-                      case 1:
-                        echo "<p style='color:red'>"."等待外送中"."</p>";
-                        break;
-                      case 2:
-                        echo "<p style='color:red;'>"."外送中"."</p>";
-                        break;
-                      case 3:
-                        echo "<p style='color:green;'>"."訂單完成"."</p>";
-                        break;
-                      
-                    }
-                    ?>
-                  </td> 
-                  <td><?php echo $row1['total_price']; ?></td>
-          
-                </tr>
-                
-              </table>
-              <br><br>
-              <h1 style="text-align: left;">訂單細節:&nbsp;&nbsp;</h1>   
-              <br>
-              <table style="font-size: 20px;color: rgb(34, 33, 33);" class="table">
-                
-                <tr>  
-                  <th>商品名稱</th>
-                  <th>單價</th> 
-                  <th>數量</th>
-                  <th>金額</th>
-                </tr>
-
-                <?php
-                $sql = "SELECT * FROM `order_detail` 
-                INNER JOIN product 
-                ON order_detail.product_id = product.product_id 
-                WHERE order_id=".$oid;
-                $result2=mysqli_query($conn, $sql);
-                while($row2 = mysqli_fetch_assoc($result2)){
-                  echo "<tr>";
-                  echo "<td>" . $row2['product_name'] . "</td>";
-                  echo "<td>" . $row2['price'] . "</td>";
-                  echo "<td>" . $row2['count'] . "</td>";
-                  echo "<td>" . $row2['count']*$row2['price']  . "</td>";
-                  echo "</tr>";
-                }
-                ?>
-
-              </table>
-        </div>
-    </center>
-      </div>
+    
 <!-- End Contact -->
 <!-- <footer class="footer-copy">
     <div class="container-fluid">

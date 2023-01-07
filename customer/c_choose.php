@@ -82,9 +82,9 @@
                   echo "<tr>";
                   echo "<td>" . $row['product_name'] . "</td>";
                   echo "<td>" . $row['price'] . "</td>";
-                  echo "<td><input name='".$row['product_id']."' type='number' value='0'></td>";
-                  echo "<td>" . $row['description'] . "</td>";
                   
+                  echo "<td>" . $row['description'] . "</td>";
+                  echo "<td><input name='".$row['product_id']."' type='number' value='0'></td>";
                 }
                 ?>
                 

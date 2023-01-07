@@ -56,9 +56,9 @@
         <p style="text-align:left;font-size: larger;padding-left: 100px;">電話號碼：<?php echo $row['phone']; ?></p>
         <p style="text-align:left;font-size: larger;padding-left: 100px;">商家地址：<?php echo $row['addr']; ?></p>
         <p style="text-align:left;font-size: larger;padding-left: 100px;;">商家類別：<?php echo $row['category']; ?></p>
-        <a href="p_info_editPage.php"><button class="btn btn-secondary">修改商家資訊</button></a>
+        <a href="p_editProfile.php"><button class="btn btn-secondary">修改商家資訊</button></a>
         &nbsp;&nbsp;
-        <a href=""><button class="btn btn-info">查看收入</button></a>
+        <a href="p_income.php"><button class="btn btn-info">查看收入</button></a>
         &nbsp;&nbsp;
         <a href="p_order.php"><button class="btn btn-danger">查看訂單</button></a>
         
@@ -73,7 +73,7 @@
         <center>
             
         <div class="container" style="padding-left: 5%;">
-            <h1 style="text-align: left;">商品&nbsp;&nbsp;<a href="p_insert.html"><button class="btn btn-dark">新增</button></a></h1>   
+            <h1 style="text-align: left;">商品&nbsp;&nbsp;<a href="p_insert.php"><button class="btn btn-dark">新增</button></a></h1>   
             <br>
             <table style="font-size: 20px;color: rgb(34, 33, 33);" class="table">
                 <tr>

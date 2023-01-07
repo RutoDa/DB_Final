@@ -60,9 +60,9 @@
         <center>
           <p style="color: black;">電話號碼：<?php echo $row['phone'];?></p>
         </center>
-        <a href="c_info_editPage.php"><button class="btn btn-light">修改個人資料</button></a>
+        <a href="d_profileEditPage.php"><button class="btn btn-light">修改個人資料</button></a>
         &nbsp;&nbsp;
-        <a href="c_income.php"><button class="btn btn-secondary">查看收入</button></a>
+        <a href="d_income.php"><button class="btn btn-secondary">查看收入</button></a>
 
 
       </div>

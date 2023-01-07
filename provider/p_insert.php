@@ -1,9 +1,17 @@
+<?php
+    session_start();
+    require_once("../config.php");
+    $pid = $_SESSION["provider_id"];
+    $sql = "SELECT * FROM provider WHERE provider_id ='".$pid."'";
+    $result=mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<title>店的名稱</title>
+<title><?php echo $row['shop_name']; ?></title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../css/p_style2.css"/>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">

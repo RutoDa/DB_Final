@@ -52,7 +52,7 @@
         <center>
         <p style="color: black;">電話號碼：<?php echo $row['phone']; ?></p>
         </center>
-        <a href="c_info_editPage.php"><button class="btn btn-light">修改個人資料</button></a>
+        <a href="c_profileEditPage.php"><button class="btn btn-light">修改個人資料</button></a>
         
         
         
