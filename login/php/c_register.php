@@ -11,13 +11,13 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $check="SELECT * FROM `customer_account` WHERE `account`='".$username."'";
     if(mysqli_num_rows(mysqli_query($conn,$check))==0){
         $sql="INSERT INTO `customer` (`customer_id`, `real_name`, `phone`)
-            VALUES(NULL,'".$real_name."','".$phone."')";
+                VALUES(NULL,'".$real_name."','".$phone."')";
         mysqli_query($conn, $sql);
             $check="SELECT `customer_id` FROM `customer` WHERE `real_name`='".$real_name."'";
             $result=mysqli_query($conn, $check);
             $customer_id= mysqli_fetch_assoc($result)["customer_id"];
         $sql2 ="INSERT INTO `customer_account` (`customer_id`, `account`, `password`)
-        VALUES(".$customer_id.",'".$username."','".$password."')";
+                VALUES(".$customer_id.",'".$username."','".$password."')";
         
         // INSERT INTO `customer` (`customer_id`, `real_name`, `phone`) VALUES ('1', '李昱佑', '0987878787');
         // INSERT INTO `customer_account` (`customer_id`, `account`, `password`) VALUES ('1', 'uu', 'uu');
