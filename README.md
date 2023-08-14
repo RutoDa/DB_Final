@@ -15,6 +15,7 @@
 #### 使用技術
 * PHP、MySQL
 ### DEMO影片
-* [![DEMO影片連結](readme_img/readme_img.png)](https://youtu.be/bCb-QeNWnsc)
+[![DEMO影片連結](readme_img/readme_img.png)](https://youtu.be/bCb-QeNWnsc)
+* [https://youtu.be/bCb-QeNWnsc](https://youtu.be/bCb-QeNWnsc)
 ### 詳細書面報告(含資料庫設計細節)
 * [書面報告](written_report/資料庫系統設計＿期末專題報告.pdf)
